@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biohacking del Respiro come Sinner | @neuroplasticity_training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06090f;
+  --bg2: #0a0f1a;
+  --teal: #7fc9b0;
+  --teal2: #4da88a;
+  --teal-glow: rgba(127,201,176,0.18);
+  --teal-dim: rgba(127,201,176,0.07);
+  --cream: #f0ece3;
+  --muted: #6a8a80;
+  --purple: #c8a8f0;
+  --purple-bg: #0e0720;
+  --white: #f4f4f2;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+}
+a { text-decoration: none; }
+
+/* CANVAS PARTICLES */
+#particles-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 6vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(6,9,15,0.7);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(127,201,176,0.08);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--teal);
+}
+.nav-cta {
+  background: var(--teal);
+  color: #06090f;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 50px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 140px 6vw 100px;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal-dim);
+  border: 1px solid rgba(127,201,176,0.2);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 36px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 9vw, 110px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--cream);
+  max-width: 1000px;
+  margin-bottom: 28px;
+}
+.hero h1 .accent {
+  color: var(--teal);
+  position: relative;
+  display: inline-block;
+}
+.hero h1 .accent::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 3px;
+  background: var(--teal);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 620px;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--teal);
+  color: #06090f;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 18px 40px;
+  border-radius: 60px;
+  transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 0 rgba(127,201,176,0);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(127,201,176,0.25);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--teal);
+  font-size: 17px;
+  font-weight: 400;
+  padding: 18px 36px;
+  border-radius: 60px;
+  border: 1px solid rgba(127,201,176,0.3);
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-ghost:hover {
+  background: var(--teal-dim);
+  transform: translateY(-2px);
+}
+.hero-scroll-line {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(127,201,176,0.3);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.scroll-bar {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(127,201,176,0.5), transparent);
+  animation: scrollbar 2s ease-in-out infinite;
+}
+@keyframes scrollbar {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(0.6); }
+}
+
+/* STRIP */
+.strip {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(127,201,176,0.1);
+  border-bottom: 1px solid rgba(127,201,176,0.1);
+  background: rgba(127,201,176,0.04);
+  padding: 24px 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  align-items: center;
+}
+.strip-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.strip-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.strip-pill {
+  background: rgba(127,201,176,0.08);
+  border: 1px solid rgba(127,201,176,0.2);
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 30px;
+  transition: background 0.2s;
+}
+.strip-pill:hover { background: rgba(127,201,176,0.15); }
+
+/* SECTIONS */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 110px 6vw;
+}
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+h2.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--cream);
+}
+h2.section-title .acc { color: var(--teal); }
+h2.section-title .acc-purple { color: var(--purple); }
+
+/* GLOW DIVIDER */
+.glow-line {
+  width: 80px;
+  height: 2px;
+  background: var(--teal);
+  border-radius: 2px;
+  margin-top: 28px;
+  box-shadow: 0 0 20px rgba(127,201,176,0.6);
+}
+
+/* PROBLEMI */
+.problems-section { background: var(--bg2); }
+.problems-intro {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 640px;
+  margin-top: 24px;
+  margin-bottom: 64px;
+}
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.problem-card {
+  background: rgba(127,201,176,0.04);
+  border: 1px solid rgba(127,201,176,0.12);
+  border-radius: 20px;
+  padding: 36px;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  cursor: default;
+}
+.problem-card:hover {
+  border-color: rgba(127,201,176,0.35);
+  background: rgba(127,201,176,0.07);
+  transform: translateY(-4px);
+}
+.problem-tag {
+  display: inline-block;
+  background: rgba(127,201,176,0.1);
+  border: 1px solid rgba(127,201,176,0.2);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.problem-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+.problem-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+/* SCIENZA */
+.science-section { background: var(--bg); }
+.science-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.45;
+  border-left: 3px solid var(--teal);
+  padding-left: 36px;
+  max-width: 800px;
+  margin: 44px 0;
+}
+.science-body {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 660px;
+  margin-bottom: 72px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.stat-card {
+  background: rgba(127,201,176,0.05);
+  border: 1px solid rgba(127,201,176,0.15);
+  border-radius: 20px;
+  padding: 40px 28px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.stat-card:hover {
+  border-color: rgba(127,201,176,0.4);
+  transform: translateY(-4px);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 12px;
+  text-shadow: 0 0 30px rgba(127,201,176,0.35);
+}
+.stat-label { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* NEURODIVERGENTI */
+.nd-section { background: var(--purple-bg); }
+.nd-intro {
+  font-size: 18px;
+  color: rgba(200,168,240,0.6);
+  line-height: 1.75;
+  max-width: 640px;
+  margin-top: 24px;
+  margin-bottom: 60px;
+}
+.nd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.nd-card {
+  background: rgba(200,168,240,0.05);
+  border: 1px solid rgba(200,168,240,0.15);
+  border-radius: 20px;
+  padding: 36px;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.nd-card:hover {
+  border-color: rgba(200,168,240,0.35);
+  background: rgba(200,168,240,0.08);
+  transform: translateY(-4px);
+}
+.nd-pill {
+  display: inline-block;
+  background: rgba(200,168,240,0.1);
+  border: 1px solid rgba(200,168,240,0.25);
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.nd-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8e0f5;
+  margin-bottom: 10px;
+}
+.nd-card p { font-size: 15px; color: rgba(200,168,240,0.55); line-height: 1.7; }
+.nd-closing {
+  margin-top: 50px;
+  background: rgba(200,168,240,0.07);
+  border: 1px solid rgba(200,168,240,0.2);
+  border-radius: 18px;
+  padding: 28px 40px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--purple);
+  line-height: 1.5;
+  max-width: 700px;
+}
+
+/* MODULI */
+.modules-section { background: var(--bg2); }
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 56px;
+}
+.module-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.module-card:hover {
+  border-color: rgba(127,201,176,0.25);
+  transform: translateY(-4px);
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--teal);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.module-card:hover::before { opacity: 1; }
+.module-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+.module-card h3 {
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+.module-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+/* PRICING */
+.pricing-section { background: var(--bg); }
+.pricing-subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-top: 20px;
+  margin-bottom: 64px;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 860px;
+}
+.plan-card {
+  border-radius: 24px;
+  padding: 48px;
+  position: relative;
+  transition: transform 0.3s;
+}
+.plan-card:hover { transform: translateY(-5px); }
+.plan-base {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(127,201,176,0.18);
+}
+.plan-elite {
+  background: var(--teal);
+  border: none;
+}
+.plan-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 20px;
+  border-radius: 30px;
+  border: 1px solid rgba(127,201,176,0.3);
+  white-space: nowrap;
+}
+.plan-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.plan-base .plan-label { color: rgba(127,201,176,0.6); }
+.plan-elite .plan-label { color: rgba(13,46,30,0.6); }
+.plan-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+.plan-base .plan-name { color: var(--cream); }
+.plan-elite .plan-name { color: #0d2e1e; }
+.plan-tagline { font-size: 14px; margin-bottom: 32px; }
+.plan-base .plan-tagline { color: rgba(240,236,227,0.45); }
+.plan-elite .plan-tagline { color: rgba(13,46,30,0.6); }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.price-cur { font-size: 22px; font-weight: 400; }
+.plan-base .price-cur { color: rgba(240,236,227,0.4); }
+.plan-elite .price-cur { color: rgba(13,46,30,0.5); }
+.price-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 68px;
+  font-weight: 900;
+  line-height: 1;
+}
+.plan-base .price-num { color: var(--cream); }
+.plan-elite .price-num { color: #0d2e1e; }
+.price-strike { font-size: 18px; text-decoration: line-through; margin-left: 6px; }
+.plan-base .price-strike { color: rgba(240,236,227,0.25); }
+.plan-elite .price-strike { color: rgba(13,46,30,0.3); }
+.price-period { font-size: 13px; margin-bottom: 32px; }
+.plan-base .price-period { color: rgba(240,236,227,0.35); }
+.plan-elite .price-period { color: rgba(13,46,30,0.45); }
+.plan-divider { height: 1px; margin: 20px 0; }
+.plan-base .plan-divider { background: rgba(127,201,176,0.12); }
+.plan-elite .plan-divider { background: rgba(13,46,30,0.15); }
+.plan-features { list-style: none; }
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  padding: 9px 0;
+  line-height: 1.5;
+}
+.plan-base .plan-features li { color: rgba(127,201,176,0.8); }
+.plan-elite .plan-features li { color: #0d2e1e; }
+.plan-features li .icon { flex-shrink: 0; margin-top: 1px; }
+.plan-cta {
+  display: block;
+  text-align: center;
+  padding: 17px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 32px;
+  transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+}
+.plan-cta:hover { transform: translateY(-2px); opacity: 0.88; }
+.plan-base .plan-cta {
+  background: rgba(127,201,176,0.1);
+  color: var(--teal);
+  border: 1px solid rgba(127,201,176,0.25);
+}
+.plan-elite .plan-cta {
+  background: #0d2e1e;
+  color: var(--teal);
+  box-shadow: 0 8px 24px rgba(13,46,30,0.3);
+}
+.plan-elite .plan-cta:hover {
+  box-shadow: 0 12px 32px rgba(13,46,30,0.4);
+}
+
+/* CHI SONO */
+.about-section { background: var(--bg2); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 56px;
+}
+@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+.about-visual {
+  aspect-ratio: 1;
+  max-width: 420px;
+  background: rgba(127,201,176,0.05);
+  border: 1px solid rgba(127,201,176,0.15);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  font-weight: 900;
+  color: var(--teal);
+  position: relative;
+  overflow: hidden;
+}
+.about-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(127,201,176,0.08) 0%, transparent 70%);
+}
+.about-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.about-text p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.about-tag {
+  background: rgba(127,201,176,0.07);
+  border: 1px solid rgba(127,201,176,0.18);
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 18px;
+  border-radius: 30px;
+}
+
+/* FINAL CTA */
+.final-cta {
+  position: relative;
+  z-index: 1;
+  background: #071a12;
+  padding: 130px 6vw;
+  text-align: center;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(127,201,176,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  position: relative;
+}
+.final-cta p {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+.final-cta .big-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--teal);
+  color: #06090f;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 22px 52px;
+  border-radius: 60px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  box-shadow: 0 0 0 0 rgba(127,201,176,0);
+}
+.final-cta .big-cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(127,201,176,0.3);
+}
+.keyword-box {
+  margin-top: 44px;
+  display: inline-block;
+  background: rgba(127,201,176,0.06);
+  border: 1px solid rgba(127,201,176,0.2);
+  border-radius: 18px;
+  padding: 24px 44px;
+  font-size: 16px;
+  color: rgba(127,201,176,0.5);
+  line-height: 1.7;
+  position: relative;
+}
+.keyword-box .kw {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--teal);
+  display: block;
+  margin-top: 6px;
+  text-shadow: 0 0 20px rgba(127,201,176,0.4);
+}
+
+/* FOOTER */
+footer {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+  padding: 28px 6vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid rgba(127,201,176,0.07);
+}
+footer p { font-size: 13px; color: rgba(127,201,176,0.25); }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HERO ANIMATION */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow { animation: fadeUp 0.8s ease forwards; }
+.hero h1 { animation: fadeUp 0.8s 0.12s ease both; }
+.hero-sub { animation: fadeUp 0.8s 0.24s ease both; }
+.hero-buttons { animation: fadeUp 0.8s 0.36s ease both; }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  section { padding: 80px 5vw; }
+  .plan-card { padding: 36px 28px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">@neuroplasticity_training</span>
+  <a href="https://neuroplasticitytraining.it/b/hdE6W" target="_blank" class="nav-cta">Acquista ora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">biohacking del respiro</div>
+  <h1>Respira<br>come <span class="accent">Sinner.</span><br>Vivi diversamente.</h1>
+  <p class="hero-sub">Il corso neuroscientifico per regolare il tuo sistema nervoso autonomo in 4 settimane. Con protocolli basati sulla teoria polivagale di Porges e sull'HRV. Anche se il tuo cervello funziona diversamente.</p>
+  <div class="hero-buttons">
+    <a href="https://neuroplasticitytraining.it/b/hdE6W" target="_blank" class="btn-primary">Acquista il corso <span>&#8599;</span></a>
+    <a href="#moduli" class="btn-ghost">Guarda il programma</a>
+  </div>
+  <div class="hero-scroll-line">
+    <div class="scroll-bar"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <span class="strip-label">per chi soffre di</span>
+  <div class="strip-pills">
+    <span class="strip-pill">PTSD</span>
+    <span class="strip-pill">Ansia cronica</span>
+    <span class="strip-pill">Cortisolo alto</span>
+    <span class="strip-pill">ADHD</span>
+    <span class="strip-pill">Burnout</span>
+    <span class="strip-pill">Sovraccarico sensoriale</span>
+    <span class="strip-pill">Insonnia</span>
+    <span class="strip-pill">Disregolazione emotiva</span>
+  </div>
+</div>
+
+<!-- PROBLEMI -->
+<section class="problems-section">
+  <div class="reveal">
+    <p class="section-eyebrow">il problema</p>
+    <h2 class="section-title">Cosa succede quando il tuo nervo vago<br>e bloccato in allerta.</h2>
+    <div class="glow-line"></div>
+    <p class="problems-intro">Non e debolezza. Non e carattere. E neurobiologia. E si puo cambiare.</p>
+  </div>
+  <div class="problems-grid">
+    <div class="problem-card reveal">
+      <span class="problem-tag">PTSD</span>
+      <h3>Ipervigilanza costante</h3>
+      <p>Sei sempre in allerta. Il corpo non riesce a distinguere il pericolo reale da quello percepito. Flashback, ansia anticipatoria, incapacita di rilassarsi davvero.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="problem-tag">Cortisolo alto</span>
+      <h3>Il corpo che non si spegne</h3>
+      <p>Insonnia, stanchezza cronica al mattino, metabolismo compromesso, sistema immunitario indebolito. Il cortisolo cronicamente elevato logora tutto.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="problem-tag">Sovraccarico sensoriale</span>
+      <h3>Troppo di tutto</h3>
+      <p>Suoni, luci, persone: tutto e amplificato. Il sistema nervoso entra in shutdown o esplosione. Non riesci a filtrare gli stimoli senza esaurirti.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="problem-tag">Ansia cronica</span>
+      <h3>Il loop che non si ferma</h3>
+      <p>Cuore accelerato, respiro corto, pensieri catastrofici. Il tuo sistema nervoso e incastrato in un ciclo di attivazione che non sa come spegnersi.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="problem-tag">ADHD</span>
+      <h3>Disregolazione emotiva</h3>
+      <p>Impulsivita, esplosioni emotive, incapacita di fermarsi. Il sistema nervoso neurodivergente si disregola piu facilmente e ha bisogno di strumenti diversi.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="problem-tag">Burnout</span>
+      <h3>Il vuoto dopo l'esaurimento</h3>
+      <p>Apatia, distacco emotivo, corpo che non risponde. Non e pigrizia: e un sistema nervoso che ha esaurito le sue riserve di regolazione.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENZA -->
+<section class="science-section">
+  <div class="reveal">
+    <p class="section-eyebrow">la scienza</p>
+    <h2 class="section-title">Non e meditazione.<br>E neurobiologia <span class="acc">applicata.</span></h2>
+    <div class="glow-line"></div>
+    <blockquote class="science-quote">"Il nervo vago e il cavo diretto tra cervello e corpo. Imparare a usarlo cambia letteralmente la struttura della risposta allo stress." Stephen Porges, teoria polivagale</blockquote>
+    <p class="science-body">Il respiro e l'unico accesso diretto e volontario al sistema nervoso autonomo. Attraverso tecniche specifiche e possibile aumentare il tono vagale, uscire dallo stato di allerta e riprogrammare la risposta allo stress in modo misurabile.</p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <p class="stat-num">6'</p>
+      <p class="stat-label">minuti di respirazione coerente per ridurre il cortisolo salivare misurabile (HeartMath)</p>
+    </div>
+    <div class="stat-card reveal">
+      <p class="stat-num">HRV</p>
+      <p class="stat-label">variabilita cardiaca: il marker numero 1 della resilienza al stress, migliorabile con la pratica</p>
+    </div>
+    <div class="stat-card reveal">
+      <p class="stat-num">4w</p>
+      <p class="stat-label">settimane per costruire una routine neurobiologica stabile e misurabile</p>
+    </div>
+    <div class="stat-card reveal">
+      <p class="stat-num">0.1</p>
+      <p class="stat-label">Hz: la frequenza della respirazione coerente polivagale ottimale</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEURODIVERGENTI -->
+<section class="nd-section">
+  <div class="reveal">
+    <p class="section-eyebrow" style="color:var(--purple);">per chi il cervello funziona diversamente</p>
+    <h2 class="section-title">ADHD, ASD, HSP, PTSD.<br>Questo corso e <span class="acc-purple">fatto per te.</span></h2>
+    <div class="glow-line" style="background:var(--purple); box-shadow: 0 0 20px rgba(200,168,240,0.5);"></div>
+    <p class="nd-intro">I cervelli neurodivergenti hanno un sistema nervoso autonomo che si disregola piu facilmente e piu intensamente. Non e un difetto: e una caratteristica che richiede strumenti progettati su misura.</p>
+  </div>
+  <div class="nd-grid">
+    <div class="nd-card reveal">
+      <span class="nd-pill">ADHD</span>
+      <h3>Iperattivazione del locus coeruleus</h3>
+      <p>Il respiro coerente riduce la scarica noradrenergica che alimenta iperattivita e impulsivita, migliorando focus, controllo degli impulsi e regolazione emotiva.</p>
+    </div>
+    <div class="nd-card reveal">
+      <span class="nd-pill">ASD</span>
+      <h3>Protocolli sensorialmente neutri</h3>
+      <p>Tecniche progettate senza elementi visivi invasivi o contatto fisico. Adattabili alle tue specifiche ipersensibilita e al tuo ritmo personale.</p>
+    </div>
+    <div class="nd-card reveal">
+      <span class="nd-pill">HSP</span>
+      <h3>Sovraccarico sensoriale</h3>
+      <p>Tecniche per allargare la finestra di tolleranza, abbassare la soglia di attivazione e tornare in equilibrio dopo l'esposizione a stimoli intensi.</p>
+    </div>
+    <div class="nd-card reveal">
+      <span class="nd-pill">PTSD</span>
+      <h3>Riportare il corpo nel presente</h3>
+      <p>Approccio bottom-up: prima il sistema nervoso, poi le emozioni, poi i pensieri. Protocolli per uscire dallo stato di freeze e ipervigilanza.</p>
+    </div>
+  </div>
+  <div class="nd-closing reveal">Il sistema nervoso si puo allenare. A qualsiasi eta. Con qualsiasi neurotipo. Con gli strumenti giusti.</div>
+</section>
+
+<!-- MODULI -->
+<section class="modules-section" id="moduli">
+  <div class="reveal">
+    <p class="section-eyebrow">il programma</p>
+    <h2 class="section-title">4 settimane.<br>Un sistema nervoso <span class="acc">calibrato.</span></h2>
+    <div class="glow-line"></div>
+  </div>
+  <div class="modules-grid">
+    <div class="module-card reveal">
+      <p class="module-num">1</p>
+      <h3>Il tuo nervo vago</h3>
+      <p>Anatomia funzionale del sistema nervoso autonomo. Teoria polivagale di Porges. Mappatura del tuo profilo autonomico personale. La finestra di tolleranza e come ampliarla.</p>
+    </div>
+    <div class="module-card reveal">
+      <p class="module-num">2</p>
+      <h3>Protocolli di respiro</h3>
+      <p>Respirazione coerente a 0.1Hz. Box breathing. Tecnica 4-7-8. BOLT score. Misurazione e tracciamento dell'HRV personale. Quando usare ogni tecnica.</p>
+    </div>
+    <div class="module-card reveal">
+      <p class="module-num">3</p>
+      <h3>Applicazioni pratiche</h3>
+      <p>Stress acuto e attacchi di panico. Insonnia. Disregolazione emotiva. ADHD e focus. Performance cognitiva e sportiva. Sovraccarico sensoriale e shutdown.</p>
+    </div>
+    <div class="module-card reveal">
+      <p class="module-num">4</p>
+      <h3>Routine neurobiologica</h3>
+      <p>Protocollo mattina e sera personalizzato. Integrazione con il ciclo circadiano. Come mantenere la pratica nel lungo periodo. Adattamento al tuo neurotipo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="reveal">
+    <p class="section-eyebrow">scegli il tuo percorso</p>
+    <h2 class="section-title">Due versioni.<br>Un solo obiettivo.</h2>
+    <div class="glow-line"></div>
+    <p class="pricing-subtitle">Entrambi i piani danno accesso a vita al corso completo. La differenza e il livello di supporto personalizzato.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="plan-card plan-base reveal">
+      <p class="plan-label">Base</p>
+      <p class="plan-name">Base</p>
+      <p class="plan-tagline">Il protocollo completo. Autonomia totale.</p>
+      <div class="plan-price">
+        <span class="price-cur">&#8364;</span>
+        <span class="price-num">97</span>
+        <span class="price-strike">&#8364;147</span>
+      </div>
+      <p class="price-period">pagamento unico · accesso a vita</p>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="icon">&#10003;</span> 4 moduli video e esercizi guidati</li>
+        <li><span class="icon">&#10003;</span> Protocolli PDF scaricabili</li>
+        <li><span class="icon">&#10003;</span> Tracciamento HRV guidato</li>
+        <li><span class="icon">&#10003;</span> Comunita privata</li>
+        <li><span class="icon">&#10003;</span> Aggiornamenti futuri inclusi</li>
+      </ul>
+      <a href="https://neuroplasticitytraining.it/b/hdE6W" target="_blank" class="plan-cta">Acquista ora &#8599;</a>
+    </div>
+    <div class="plan-card plan-elite reveal" style="position:relative;">
+      <span class="plan-badge">&#9733; Piu scelto</span>
+      <p class="plan-label">Elite</p>
+      <p class="plan-name">Elite</p>
+      <p class="plan-tagline">Il protocollo piu la guida di una neuropsicologa.</p>
+      <div class="plan-price">
+        <span class="price-cur">&#8364;</span>
+        <span class="price-num">297</span>
+        <span class="price-strike">&#8364;397</span>
+      </div>
+      <p class="price-period">pagamento unico · accesso a vita</p>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="icon">&#10003;</span> Tutto del piano Base</li>
+        <li><span class="icon">&#9733;</span> Accesso a PsicoChat h24 la mia AI</li>
+        <li><span class="icon">&#9733;</span> Sessione 1:1 con me da 60 minuti</li>
+        <li><span class="icon">&#9733;</span> Piano neurobiologico personalizzato</li>
+        <li><span class="icon">&#9733;</span> Protocollo adattato al tuo neurotipo</li>
+        <li><span class="icon">&#9733;</span> Supporto DM prioritario per 30 giorni</li>
+      </ul>
+      <a href="https://neuroplasticitytraining.it/b/hdE6W" target="_blank" class="plan-cta">Acquista ora &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<!-- CHI SONO -->
+<section class="about-section">
+  <div class="reveal">
+    <p class="section-eyebrow">chi sono</p>
+    <h2 class="section-title">Neuropsicologa.<br>Data scientist.</h2>
+    <div class="glow-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-visual reveal">NT</div>
+    <div class="about-text reveal">
+      <h3>Non faccio wellness.<br>Faccio neuroscienze applicate.</h3>
+      <p>Ho costruito questo corso unendo la clinica, anni di lavoro con persone in stati di disregolazione cronica, e la data science, per misurare quello che funziona davvero e buttare il resto.</p>
+      <p>Ogni protocollo ha una base scientifica precisa, e stato testato, e ha una ragione per essere li. Niente intuizioni. Niente tendenze wellness.</p>
+      <div class="about-tags">
+        <span class="about-tag">Neuropsicologia clinica</span>
+        <span class="about-tag">Data science</span>
+        <span class="about-tag">Teoria polivagale</span>
+        <span class="about-tag">HRV e biofeedback</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Pronto a fare il biohack<br>che conta davvero?</h2>
+  <p>Niente link da cercare. Niente form da compilare. Un commento sotto il post e ti mando tutto in DM, accesso immediato.</p>
+  <a href="https://neuroplasticitytraining.it/b/hdE6W" target="_blank" class="big-cta">Acquista ora &#8599;</a>
+  <div class="keyword-box">
+    scrivi nei commenti su Instagram
+    <span class="kw">RESPIRO</span>
+    e ti mando l'offerta direttamente in DM
+  </div>
+</section>
+
+<footer>
+  <p>@neuroplasticity_training &mdash; biohacking del respiro</p>
+  <p>&copy; 2026 neuroplasticity_training</p>
+</footer>
+
+<script>
+// PARTICLES
+(function(){
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = ['rgba(127,201,176,', 'rgba(77,168,138,', 'rgba(200,168,240,'];
+
+  for(let i = 0; i < 70; i++){
+    particles.push({
+      x: Math.random() * 1400,
+      y: Math.random() * 900,
+      r: Math.random() * 1.8 + 0.4,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.5 + 0.1,
+      color: COLORS[Math.floor(Math.random()*COLORS.length)]
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0) p.x = W;
+      if(p.x > W) p.x = 0;
+      if(p.y < 0) p.y = H;
+      if(p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.fill();
+    });
+
+    // draw lines between close particles
+    for(let i = 0; i < particles.length; i++){
+      for(let j = i+1; j < particles.length; j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 140){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(127,201,176,' + (0.06 * (1 - dist/140)) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// SCROLL REVEAL
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => observer.observe(el));
+})();
+
+// STAGGER children in grids
+document.querySelectorAll('.problems-grid, .nd-grid, .modules-grid, .stats-grid, .pricing-grid').forEach(grid => {
+  const cards = grid.querySelectorAll('.reveal');
+  cards.forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.08) + 's';
+  });
+});
+
+// NAV scroll opacity
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if(window.scrollY > 60){
+    nav.style.borderBottomColor = 'rgba(127,201,176,0.15)';
+  } else {
+    nav.style.borderBottomColor = 'rgba(127,201,176,0.08)';
+  }
+});
+</script>
+</body>
+</html>
